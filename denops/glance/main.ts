@@ -164,7 +164,8 @@ export async function main(denops: Denops) {
         port: options.port,
         onListen: (addr: Deno.NetAddr) => {
           if (!options.silent) {
-            const message = `[glance] Server listening on http://${addr.hostname}:${addr.port}`;
+            const message =
+              `[glance] Server listening on http://${addr.hostname}:${addr.port}`;
             helper.echo(denops, message);
           }
         },

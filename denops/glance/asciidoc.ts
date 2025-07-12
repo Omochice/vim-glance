@@ -1,6 +1,9 @@
 import { Renderer, RendererConstructor } from "./renderer.ts";
-import { Asciidoctor, wasmURL } from "npm:asciidoctor-wasm@0.2023.19/dist/browser.js"
-import type { AsciidoctorOptions } from "npm:asciidoctor-wasm@0.2023.19/dist/browser.js"
+import {
+  Asciidoctor,
+  wasmURL,
+} from "npm:asciidoctor-wasm@0.2023.19/dist/browser.js";
+import type { AsciidoctorOptions } from "npm:asciidoctor-wasm@0.2023.19/dist/browser.js";
 
 export const AsciidocRenderer: RendererConstructor<AsciidoctorOptions> =
   class AsciidocRenderer implements Renderer<AsciidoctorOptions> {
@@ -9,8 +12,10 @@ export const AsciidocRenderer: RendererConstructor<AsciidoctorOptions> =
     constructor(asciidoctor: Asciidoctor, options: AsciidoctorOptions = {}) {
       this.#asciidoctor = asciidoctor;
       this.#options = { ...options, safe: "safe", sourcemap: true };
- }
-    static async create(options: AsciidoctorOptions): Promise<AsciidocRenderer> {
+    }
+    static async create(
+      options: AsciidoctorOptions,
+    ): Promise<AsciidocRenderer> {
       const adoc = await Asciidoctor.initFromURL(wasmURL);
       adoc.code = `
         require 'asciidoctor'
