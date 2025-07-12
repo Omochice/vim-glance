@@ -8,7 +8,7 @@ import { memoizy } from "npm:memoizy@1.2.3";
 import { join } from "jsr:@std/path@1.0.8";
 import { Server } from "./server.ts";
 import { MarkdownRenderer } from "./markdown.ts";
-import { AsciidocRenderer } from "./asciidoc.ts";
+// import { AsciidocRenderer } from "./asciidoc.ts";
 import { PodiumRenderer } from "./pod.ts";
 import { Renderer } from "./renderer.ts";
 
@@ -53,9 +53,9 @@ export async function main(denops: Denops) {
     if (filetype == "markdown") {
       const document = await renderer.markdown.render(content);
       server.send("update", { document, line: pos[1] });
-    } else if (filetype == "asciidoc") {
-      const document = await renderer.asciidoc.render(content);
-      server.send("update", { document, line: pos[1] });
+      // } else if (filetype == "asciidoc") {
+      //   const document = await renderer.asciidoc.render(content);
+      //   server.send("update", { document, line: pos[1] });
     } else if (filetype == "pod") {
       const document = await renderer.pod.render(content);
       server.send("update", { document, line: pos[1] });
@@ -136,9 +136,13 @@ export async function main(denops: Denops) {
       plugins: options.markdown_plugins,
       createMarkdownRenderer,
     });
-    const asciidoc = await AsciidocRenderer.create({});
+    // const asciidoc = await AsciidocRenderer.create({});
     const pod = await PodiumRenderer.create({ denops });
-    return { markdown, asciidoc, pod };
+    return {
+      markdown,
+      // asciidoc,
+      pod,
+    };
   });
 
   const ensureServer = memoizy(async () => {
